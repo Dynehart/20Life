@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -30,6 +31,11 @@ namespace _20Life
         public MainPage()
         {
             this.InitializeComponent();
+            P1Forest.Tapped += Element_PointerTapped;
+            P1Mountain.Tapped += Element_PointerTapped;
+            P1Plain.Tapped += Element_PointerTapped;
+            P1Swamp.Tapped += Element_PointerTapped;
+            P1Island.Tapped += Element_PointerTapped;
         }
 
         private void P1Plus_Click(object sender, RoutedEventArgs e)
@@ -47,61 +53,30 @@ namespace _20Life
 
         }
 
-        private  void P1Forest_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            ChangeOpacity(P1Forest);
+        //private void ChangeOpacity(Image SenderImage)
+        //{
+        //    SenderImage.Opacity = SenderImage.Opacity == 1 ? 0.2 : 1;
+        //    //if (SenderImage.Opacity == 1)
+        //    //{
+        //    //    SenderImage.Opacity = 0.2;
 
+        //    //}
+        //    //else
+        //    //{
+        //    //    SenderImage.Opacity = 1;
+        //    //}
+        //    //P1Forest.Source = new BitmapImage(new Uri(new Uri(Directory.GetCurrentDirectory(), UriKind.Absolute), new Uri(@"/Assets/forest.png", UriKind.Relative)));
+        //    //var x = e.ToString();
+        //    //var dialog = new MessageDialog(x);
+        //    //await dialog.ShowAsync();
+        //}
+
+        private void Element_PointerTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Image image = sender as Image;
+            image.Opacity = image.Opacity == 1 ? 0.2 : 1;
         }
 
-        private void P1Mountain_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            ChangeOpacity(P1Mountain);
-
-        }
-
-        private void P1Plain_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            ChangeOpacity(P1Plain);
-
-        }
-
-        private void P1Swamp_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            ChangeOpacity(P1Swamp);
-
-        }
-
-        private void P1Island_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            ChangeOpacity(P1Island);
-
-        }
-
-        private void ChangeOpacity(Image SenderImage)
-        {
-            if (SenderImage.Opacity == 1)
-            {
-                SenderImage.Opacity = 0.2;
-
-            }
-            else
-            {
-                SenderImage.Opacity = 1;
-            }
-            //P1Forest.Source = new BitmapImage(new Uri(new Uri(Directory.GetCurrentDirectory(), UriKind.Absolute), new Uri(@"/Assets/forest.png", UriKind.Relative)));
-            //var x = e.ToString();
-            //var dialog = new MessageDialog(x);
-            //await dialog.ShowAsync();
-        }
-
-        private void P1Minus_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            VisualStateManager.GoToState(sender as Control, "HoverState", false);
-        }
-
-        private void FontIcon_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-        }
 
         //private void P1Plus_Tapped(object sender, TappedRoutedEventArgs e)
         //{

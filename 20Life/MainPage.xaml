@@ -20,27 +20,47 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="RepeatButton">
                         <Border>
-                            <TextBlock x:Name="ContentBlock" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal"/>
-                                    <VisualState x:Name="MouseOver">
+                                    <VisualStateGroup.Transitions>
+                                        <!--Take a quarter second to trasition to the PointerOver and Pressed states.-->
+                                        <VisualTransition To="PointerOver" GeneratedDuration="0:0:0.25"/>
+                                        <VisualTransition To="Pressed" GeneratedDuration="0:0:0.25"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal">
                                         <Storyboard>
-                                            <ColorAnimation Storyboard.TargetName="ContentBlock" Storyboard.TargetProperty="Foreground" To="Red"></ColorAnimation>
+                                            <ColorAnimation Duration="0" To="Gray" Storyboard.TargetProperty="(textBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ContentBlock" />
                                         </Storyboard>
                                     </VisualState>
-
-
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0" To="Black" Storyboard.TargetProperty="(textBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ContentBlock" />
+                                        </Storyboard>
+                                    </VisualState>
                                     <!--pressed focused -->
-                                    <VisualState x:Name="Pressed"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0" To="Red" Storyboard.TargetProperty="(textBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ContentBlock" />
+                                        </Storyboard>
+                                    </VisualState>
                                     <VisualState x:Name="Disabled"/>
-
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
+                            <TextBlock x:Name="ContentBlock" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <!--<ContentPresenter x:Name="content1" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <Style x:Key="ElementButtonStyle" TargetType="Image">
+            <Setter Property="Margin" Value="0,32"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="64"/>
+            <Setter Property="Width" Value="64"/>
+            <Setter Property="Opacity" Value="0.2"/>
         </Style>
     </Page.Resources>
 
@@ -48,16 +68,14 @@
         <Grid Margin="0,320,0,128">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" MinWidth="200" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <FontIcon PointerPressed="FontIcon_PointerPressed" Glyph="1"></FontIcon>
-            <RepeatButton x:Name="P1Minus" Style="{StaticResource changeButton}" Content="" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="64" Width="64" Delay="500" Interval="150" Click="P1Minus_Click"/>
+            <RepeatButton x:Name="P1Minus" Style="{StaticResource changeButton}" Content="&#xE949;" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="64" Width="64" Delay="500" Interval="150" Click="P1Minus_Click">
+                <!--<TextBlock Text="&#xE949;"></TextBlock>-->
+            </RepeatButton>
             <TextBlock x:Name="P1HPText" HorizontalAlignment="Center" Margin="64" TextWrapping="Wrap" Text="20" Grid.Column="1" VerticalAlignment="Center" FontSize="60"/>
-            <!--<TextBlock x:Name="P1Plus" Grid.Column="3" TextWrapping="Wrap" Text="" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="60" Grid.ColumnSpan="2" Tapped="P1Plus_Tapped" Holding="P1Plus_Holding" DoubleTapped="P1Plus_DoubleTapped"/>-->
             <RepeatButton x:Name="P1Plus" Style="{StaticResource changeButton}" Content="" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="64" Width="64" Delay="500" Interval="150" Click="P1Plus_Click"/>
-
-
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -67,11 +85,11 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Image x:Name="P1Forest" Source="Assets/forest.png" Margin="0,32" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="64" Width="64" Tapped="P1Forest_Tapped" Opacity="0.2"/>
-            <Image x:Name="P1Mountain" Source="Assets/mountain.png" Margin="0,32" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="64" Width="64" Tapped="P1Mountain_Tapped" Opacity="0.2"/>
-            <Image x:Name="P1Plain" Source="Assets/plain.png" Margin="0,32" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="64" Width="64" Tapped="P1Plain_Tapped" Opacity="0.2"/>
-            <Image x:Name="P1Swamp" Source="Assets/swamp.png" Margin="0,32" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="64" Width="64" Tapped="P1Swamp_Tapped" Opacity="0.2"/>
-            <Image x:Name="P1Island" Source="Assets/island.png" Margin="0, 32" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="64" Width="64" Tapped="P1Island_Tapped" Opacity="0.2"/>
+            <Image x:Name="P1Forest" Style="{StaticResource ElementButtonStyle}" Source="Assets/forest.png" Grid.Column="0"/>
+            <Image x:Name="P1Mountain" Style="{StaticResource ElementButtonStyle}" Source="Assets/mountain.png" Grid.Column="1"/>
+            <Image x:Name="P1Plain" Style="{StaticResource ElementButtonStyle}" Source="Assets/plain.png" Grid.Column="2"/>
+            <Image x:Name="P1Swamp" Style="{StaticResource ElementButtonStyle}" Source="Assets/swamp.png" Grid.Column="3"/>
+            <Image x:Name="P1Island" Style="{StaticResource ElementButtonStyle}" Source="Assets/island.png" Grid.Column="4"/>
         </Grid>
 
     </Grid>
