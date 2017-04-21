@@ -1,0 +1,81 @@
+﻿<Page
+    x:Class="_20Life.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:_20Life"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Unloaded="Page_Unloaded"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style x:Name="changeButton" TargetType="RepeatButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border>
+                            <TextBlock x:Name="ContentBlock" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="ContentBlock" Storyboard.TargetProperty="Foreground" To="Red"></ColorAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+
+
+                                    <!--pressed focused -->
+                                    <VisualState x:Name="Pressed"/>
+                                    <VisualState x:Name="Disabled"/>
+
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Margin="0,320,0,128">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <FontIcon PointerPressed="FontIcon_PointerPressed" Glyph="1"></FontIcon>
+            <RepeatButton x:Name="P1Minus" Style="{StaticResource changeButton}" Content="" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="64" Width="64" Delay="500" Interval="150" Click="P1Minus_Click"/>
+            <TextBlock x:Name="P1HPText" HorizontalAlignment="Center" Margin="64" TextWrapping="Wrap" Text="20" Grid.Column="1" VerticalAlignment="Center" FontSize="60"/>
+            <!--<TextBlock x:Name="P1Plus" Grid.Column="3" TextWrapping="Wrap" Text="" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="60" Grid.ColumnSpan="2" Tapped="P1Plus_Tapped" Holding="P1Plus_Holding" DoubleTapped="P1Plus_DoubleTapped"/>-->
+            <RepeatButton x:Name="P1Plus" Style="{StaticResource changeButton}" Content="" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="64" Width="64" Delay="500" Interval="150" Click="P1Plus_Click"/>
+
+
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image x:Name="P1Forest" Source="Assets/forest.png" Margin="0,32" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="64" Width="64" Tapped="P1Forest_Tapped" Opacity="0.2"/>
+            <Image x:Name="P1Mountain" Source="Assets/mountain.png" Margin="0,32" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="64" Width="64" Tapped="P1Mountain_Tapped" Opacity="0.2"/>
+            <Image x:Name="P1Plain" Source="Assets/plain.png" Margin="0,32" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="64" Width="64" Tapped="P1Plain_Tapped" Opacity="0.2"/>
+            <Image x:Name="P1Swamp" Source="Assets/swamp.png" Margin="0,32" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="64" Width="64" Tapped="P1Swamp_Tapped" Opacity="0.2"/>
+            <Image x:Name="P1Island" Source="Assets/island.png" Margin="0, 32" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="64" Width="64" Tapped="P1Island_Tapped" Opacity="0.2"/>
+        </Grid>
+
+    </Grid>
+
+
+
+</Page>
